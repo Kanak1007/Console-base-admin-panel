@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 
 public class Validate {
     // Email validation regex
-    private static final Pattern patternEmail =
-            Pattern.compile("^[A-Za-z0-9]+([._-][A-Za-z0-9]+)*@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$");
+    private static final Pattern patternEmail = Pattern.compile("^[A-Za-z0-9]+([._-][A-Za-z0-9]+)*@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$");
 
     // Mobile number validation regex (Allows country code +10 to 15 digits)
     private static final Pattern patternMobile = Pattern.compile("^(\\+\\d{1,3})?[0-9]{10,15}$");
@@ -21,7 +20,7 @@ public class Validate {
 
     // Validate name
     public static boolean isValidName(String name) {
-        return name != null && patternName.matcher(name).matches();
+        return name != null && !name.trim().isEmpty() && patternName.matcher(name).matches();
     }
 
     // Validate a single mobile number
@@ -31,6 +30,6 @@ public class Validate {
 
     // Validate list of mobile numbers
     public static boolean isValidMobileList(List<String> mobileList) {
-        return mobileList != null && mobileList.stream().allMatch(Validate::isValidMobile);
+        return mobileList == null || mobileList.isEmpty() || !mobileList.stream().allMatch(Validate::isValidMobile);
     }
 }

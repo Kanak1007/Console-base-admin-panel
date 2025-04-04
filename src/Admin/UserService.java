@@ -31,8 +31,7 @@ public class UserService {
     // fetching a single user
     public User getSingleuser(String email) throws UserNotFoundException {
 
-        return users.stream().filter(User -> User.getEmail().equalsIgnoreCase(email)).findFirst()
-                .orElseThrow(() -> new UserNotFoundException("User not found with email " + email));
+        return users.stream().filter(User -> User.getEmail().equalsIgnoreCase(email)).findFirst().orElseThrow(() -> new UserNotFoundException("User not found with email " + email));
 
 
     }
@@ -53,23 +52,24 @@ public class UserService {
         return "All users deleted successfully.";
     }
 
-    // update a user
-    public String updateUser(String email, String newName, List<String> newNumbers)
-            throws UserNotFoundException {
+    // Update User
+    public boolean updateUser(String currentEmail, String newName, List<String> newNumbers, String newEmail) {
+        User user = users.stream().filter(u -> u.getEmail().equalsIgnoreCase(currentEmail)).findFirst().orElse(null);
 
-        User user = getSingleuser(email);
-        user.setName(newName);
-        user.setMobile(newNumbers);
-
-        return "User updated successfully.";
-    }
-
-    public boolean CheckList() {
-        if (users.isEmpty()) {
-            return true;
-        } else {
-            return false;
+        if (user == null) {
+            return false; // User not found
         }
+
+        if (newName != null) user.setName(newName);
+        if (newNumbers != null) user.setMobile(newNumbers);
+        if (newEmail != null) user.setEmail(newEmail);
+
+        return true;
     }
 
-};
+    // check if the list is empty
+    public boolean CheckList() {
+        return users.isEmpty();
+    }
+
+}

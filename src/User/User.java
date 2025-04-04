@@ -1,7 +1,6 @@
 package User;
 
 
-
 import java.util.List;
 
 import Validate.*;
@@ -15,9 +14,9 @@ public class User {
 
     // Constructor
     public User(String name, String email, List<String> mobile) {
-       setMobile(mobile);
-       setEmail(email);
-       setName(name);
+        setMobile(mobile);
+        setEmail(email);
+        setName(name);
     }
 
 
@@ -29,7 +28,7 @@ public class User {
 
     // Setter methods
     public void setMobile(List<String> mobile) {
-        if (!Validate.isValidMobileList(mobile)) {
+        if (Validate.isValidMobileList(mobile)) {
             throw new IllegalArgumentException("Invalid mobile number(s): " + mobile);
         }
         this.mobile = mobile;
@@ -41,19 +40,17 @@ public class User {
         }
         this.name = name;
     }
-   public void setEmail(String email){
-        if(!Validate.isValidEmail(email)){
+
+    public void setEmail(String email) {
+        if (!Validate.isValidEmail(email)) {
             throw new IllegalArgumentException("Invalid name: " + email);
         }
-        this.email=email;
-   }
+        this.email = email;
+    }
+
     // ToString method for displaying user details
     @Override
     public String toString() {
-        return "User deatils:- {" +
-                "name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", mobile=" + mobile +
-                '}' + '\n';
+        return "User deatils:- {" + "name='" + name + '\'' + ", email='" + email + '\'' + ", mobile=" + mobile + '}' + '\n';
     }
 }
